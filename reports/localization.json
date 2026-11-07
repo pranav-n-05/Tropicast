@@ -1,0 +1,44 @@
+{
+  "test_images": 817,
+  "test_seasons": [
+    2012,
+    2015
+  ],
+  "max_shift_km": 155.0,
+  "cnn_heatmap": {
+    "mean_km": 72.5,
+    "median_km": 63.7,
+    "p90_km": 142.7
+  },
+  "baseline_crop_centre": {
+    "mean_km": 124.0,
+    "median_km": 131.5,
+    "p90_km": 180.8
+  },
+  "baseline_coldest_cloud": {
+    "mean_km": 589.8,
+    "median_km": 591.9,
+    "p90_km": 715.4
+  },
+  "cnn_by_intensity": {
+    "<34 kt": {
+      "mean_km": 82.9,
+      "median_km": 75.6,
+      "p90_km": 150.2,
+      "n": 428
+    },
+    "34-63 kt": {
+      "mean_km": 74.9,
+      "median_km": 65.7,
+      "p90_km": 143.9,
+      "n": 249
+    },
+    ">=64 kt": {
+      "mean_km": 36.3,
+      "median_km": 28.6,
+      "p90_km": 67.3,
+      "n": 140
+    }
+  },
+  "label_note": "Reference = HURSAT/IBTrACS interpolated best-track centre (weak label)."
+}
