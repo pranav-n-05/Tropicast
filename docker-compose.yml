@@ -1,0 +1,37 @@
+services:
+  api:
+    build: .
+    command: ["serve"]
+    ports: ["8000:8000"]
+    env_file:
+      - path: .env
+        required: false
+    volumes:
+      - tropicast-data:/app/data
+      - tropicast-artifacts:/app/artifacts
+      - tropicast-reports:/app/reports
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request;urllib.request.urlopen('http://127.0.0.1:8000/api/v1/health')"]
+      interval: 30s
+      start_period: 30m
+    restart: unless-stopped
+
+  pipeline:
+    build: .
+    command: ["pipeline"]
+    env_file:
+      - path: .env
+        required: false
+    depends_on:
+      api:
+        condition: service_healthy   # api bootstraps data/models first; avoids double training
+    volumes:
+      - tropicast-data:/app/data
+      - tropicast-artifacts:/app/artifacts
+      - tropicast-reports:/app/reports
+    restart: unless-stopped
+
+volumes:
+  tropicast-data:
+  tropicast-artifacts:
+  tropicast-reports:
