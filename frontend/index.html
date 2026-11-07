@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Tropicast · North Indian Ocean cyclone intelligence (experimental)</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="top">
+    <div class="brand">
+      <span class="logo" aria-hidden="true">◎</span>
+      <div>
+        <h1>Tropicast</h1>
+        <p class="sub">Bay of Bengal · Arabian Sea — cyclone track &amp; intensity research prototype</p>
+      </div>
+    </div>
+    <div class="status" id="health" aria-live="polite">checking…</div>
+  </header>
+
+  <div class="disclaimer" role="alert">
+    <strong>EXPERIMENTAL.</strong>
+    <span id="disclaimer-text">This platform provides experimental AI-based decision support. It is not an official
+    weather warning, evacuation advisory, or disaster-management product. For safety-critical decisions, follow
+    official advisories from the India Meteorological Department and relevant disaster-management authorities.</span>
+    <a href="https://mausam.imd.gov.in/" target="_blank" rel="noopener">IMD official site ↗</a>
+  </div>
+
+  <main class="layout">
+    <aside class="side">
+      <nav class="tabs" role="tablist">
+        <button role="tab" data-tab="active" class="on">Active</button>
+        <button role="tab" data-tab="explore">Explorer</button>
+        <button role="tab" data-tab="models">Models</button>
+        <button role="tab" data-tab="sources">Data</button>
+      </nav>
+
+      <section id="tab-active" class="pane on">
+        <p class="hint" id="active-note"></p>
+        <ul class="list" id="active-list"></ul>
+        <div id="notes"></div>
+      </section>
+
+      <section id="tab-explore" class="pane">
+        <div class="filters">
+          <input id="q" type="search" placeholder="Name or SID (e.g. AMPHAN)" aria-label="search storms" />
+          <div class="row">
+            <label>From <input id="from" type="number" value="1990" min="1842" max="2100" /></label>
+            <label>To <input id="to" type="number" value="2026" min="1842" max="2100" /></label>
+            <label>≥ kt <input id="minw" type="number" value="34" min="0" max="200" /></label>
+          </div>
+        </div>
+        <ul class="list" id="storm-list"></ul>
+      </section>
+
+      <section id="tab-models" class="pane">
+        <div id="models"></div>
+      </section>
+
+      <section id="tab-sources" class="pane">
+        <div id="sources"></div>
+      </section>
+    </aside>
+
+    <section class="mapwrap">
+      <div id="map" aria-label="map of storm tracks"></div>
+      <div class="legend" aria-label="legend">
+        <div><i class="sw obs"></i>Best track (observed)</div>
+        <div><i class="sw prov"></i>Provisional track</div>
+        <div><i class="sw ai"></i>AI forecast (median)</div>
+        <div><i class="sw cone"></i>67 % track uncertainty</div>
+        <div><i class="sw ver"></i>Verifying position (hindcast)</div>
+        <div class="cats" id="cat-legend"></div>
+      </div>
+    </section>
+
+    <section class="detail" id="detail">
+      <div class="empty">Select a storm to view its track and an experimental forecast.</div>
+    </section>
+  </main>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+  <script src="https://cdn.plot.ly/plotly-2.35.2.min.js" charset="utf-8"></script>
+  <script src="app.js"></script>
+</body>
+</html>
