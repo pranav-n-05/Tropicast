@@ -1,0 +1,106 @@
+{
+  "n": 309,
+  "n_positive": 158,
+  "event_rate": 0.5113,
+  "brier": 0.1644,
+  "brier_climatology": 0.262,
+  "brier_skill": 0.372,
+  "roc_auc": 0.849,
+  "reliability": [
+    {
+      "bin": [
+        0.0,
+        0.1
+      ],
+      "n": 3,
+      "mean_forecast": 0.018,
+      "observed_freq": 0.0
+    },
+    {
+      "bin": [
+        0.1,
+        0.2
+      ],
+      "n": 26,
+      "mean_forecast": 0.15,
+      "observed_freq": 0.077
+    },
+    {
+      "bin": [
+        0.2,
+        0.3
+      ],
+      "n": 30,
+      "mean_forecast": 0.248,
+      "observed_freq": 0.067
+    },
+    {
+      "bin": [
+        0.3,
+        0.4
+      ],
+      "n": 36,
+      "mean_forecast": 0.349,
+      "observed_freq": 0.25
+    },
+    {
+      "bin": [
+        0.4,
+        0.5
+      ],
+      "n": 28,
+      "mean_forecast": 0.449,
+      "observed_freq": 0.357
+    },
+    {
+      "bin": [
+        0.5,
+        0.6
+      ],
+      "n": 36,
+      "mean_forecast": 0.55,
+      "observed_freq": 0.472
+    },
+    {
+      "bin": [
+        0.6,
+        0.7
+      ],
+      "n": 49,
+      "mean_forecast": 0.656,
+      "observed_freq": 0.592
+    },
+    {
+      "bin": [
+        0.7,
+        0.8
+      ],
+      "n": 33,
+      "mean_forecast": 0.749,
+      "observed_freq": 0.848
+    },
+    {
+      "bin": [
+        0.8,
+        0.9
+      ],
+      "n": 31,
+      "mean_forecast": 0.841,
+      "observed_freq": 0.839
+    },
+    {
+      "bin": [
+        0.9,
+        1.0
+      ],
+      "n": 37,
+      "mean_forecast": 0.956,
+      "observed_freq": 0.946
+    }
+  ],
+  "climatology_rate_train": 0.4013,
+  "test_storms": 53,
+  "members": 200,
+  "issue_every_h": 12,
+  "definition": "landfall = observed centre moves from water (DIST2LAND>0) to land within 72 h"
+}
