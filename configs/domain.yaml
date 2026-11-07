@@ -1,0 +1,13 @@
+# Basin definition. Add a new file per basin; code reads only this config.
+basin: NI
+name: North Indian Ocean (Bay of Bengal + Arabian Sea)
+bbox:            # degrees; inclusive. Assumption A3 in docs/phase1-requirements.md
+  lat_min: 0.0
+  lat_max: 30.0
+  lon_min: 40.0
+  lon_max: 100.0
+# IBTrACS SUBBASIN codes kept for v1. BB = Bay of Bengal, AS = Arabian Sea.
+# MM (missing) rows are kept only if inside bbox.
+subbasins: [BB, AS, MM]
+primary_agency: newdelhi        # RSMC New Delhi (IMD) best track
+synoptic_hours: [0, 6, 12, 18]  # modelling cadence (6-hourly)

@@ -1,0 +1,63 @@
+# Data-source register. Only endpoints that were checked are given a URL.
+# status: implemented | requires_credentials | not_implemented
+sources:
+  ibtracs_ni:
+    name: NOAA NCEI IBTrACS v04r01, North Indian basin CSV
+    status: implemented
+    url: https://www.ncei.noaa.gov/data/international-best-track-archive-for-climate-stewardship-ibtracs/v04r01/access/csv/ibtracs.NI.list.v04r01.csv
+    url_verified: "2026-11-07 (HTTP 200)"
+    auth: none
+    format: "CSV, 2-line header (names, units)"
+    temporal_resolution: 3-hourly (agency-dependent; RSMC New Delhi 3-hourly since ~1982)
+    update_frequency: NCEI updates provisional (recent) data roughly weekly; requires_verification
+    licence: NOAA public data; cite Knapp et al. (2010) BAMS and dataset DOI (verify in Phase 2)
+    expected_latency_hours: 168    # used for freshness: provisional records lag days
+    stale_after_hours: 336
+    notes: >
+      Recent-season provisional records may contain only USA (JTWC) winds,
+      which are 1-minute means and are NOT equivalent to IMD 3-minute winds.
+      No conversion is applied; the agency is carried on every record.
+  hursat_b1:
+    name: NOAA NCEI HURSAT-B1 v06 storm-centred IR imagery
+    status: implemented
+    url: https://www.ncei.noaa.gov/data/hurricane-satellite-hursat-b1/archive/v06/
+    url_verified: "2026-11-07 (HTTP 200, directory listing; files keyed by IBTrACS SID)"
+    auth: none
+    format: tar.gz of per-image netCDF (301x301, 0.07 deg, Mercator)
+    temporal_resolution: 3-hourly; 1978-2015 (archive ends 2015)
+    licence: NOAA public data; cite Knapp and Kossin (2007) J. Appl. Remote Sens. (verify DOI)
+    notes: >
+      Open substitute for INSAT imagery for historical training. Not real-time
+      (archive ends 2015), so satellite models are research/hindcast-only.
+  ships_io:
+    name: CIRA/RAMMB SHIPS developmental database, Indian Ocean (lsdiagi 1990-2021)
+    status: implemented
+    url: https://rammb-data.cira.colostate.edu/ships/data/IO/lsdiagi_1990_2021_5day.txt
+    url_verified: "2026-11-07 (HTTP 200, 38.6 MB)"
+    auth: none
+    format: fixed-width text, 6-hourly cases, predictors vs lead time
+    temporal_resolution: 6-hourly; 1990-2021 (static file, not real-time)
+    licence: public research dataset; cite DeMaria and Kaplan (1994, 1999) and the SHIPS predictor file
+    notes: >
+      Environmental predictors from NCEP analyses along JTWC tracks. Only the
+      t=0 column is used (later columns are perfect-prog along the verifying
+      track and would leak). Substitute for ERA5 until a CDS key is available.
+  era5:
+    name: Copernicus ERA5 single/pressure levels
+    status: requires_credentials
+    auth: Copernicus CDS account + API key (~/.cdsapirc)
+    notes: "Connector scaffold only; enable with pip install .[era5] and credentials."
+  gpm_imerg:
+    name: NASA GPM IMERG (Early/Late/Final)
+    status: requires_credentials
+    auth: NASA Earthdata login
+    notes: Connector scaffold only.
+  mosdac_insat:
+    name: ISRO MOSDAC INSAT-3D/3DR imagery
+    status: requires_credentials
+    auth: MOSDAC registration and data-access approval
+    notes: Not implemented; image models depend on this. Fallbacks in docs.
+  himawari:
+    name: Himawari-8/9 AHI
+    status: not_implemented
+    notes: Partial NIO coverage only (west edge of disk); requires_verification.

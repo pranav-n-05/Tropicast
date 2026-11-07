@@ -1,0 +1,22 @@
+seed: 42
+timestep_h: 6
+history_steps: 4          # 4 x 6 h = 24 h of track history as input
+lead_times_h: [6, 12, 24, 48, 72]
+min_wind_kt: 17           # only times at or above depression strength enter samples
+# Season-based split => storms never shared between splits (event-disjoint).
+split:
+  train: [1982, 2012]
+  val:   [2013, 2018]
+  test:  [2019, 2025]
+quantiles: [0.05, 0.5, 0.95]   # 90% central prediction interval
+gru:
+  hidden: 64
+  layers: 1
+  dropout: 0.1
+  epochs: 60
+  lr: 0.002
+  batch_size: 128
+  ensemble: 5
+  patience: 8
+artifacts_dir: artifacts
+reports_dir: reports

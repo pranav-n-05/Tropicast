@@ -1,0 +1,22 @@
+# IMD intensity classes, keyed on maximum sustained wind (knots).
+# Averaging period: IMD/RSMC New Delhi uses a 3-minute mean (to be confirmed
+# against IMD documentation, Phase 2 item). Thresholds below are the widely
+# published IMD scheme; status: requires_verification.
+agency: newdelhi
+wind_averaging_minutes: 3
+units: kt
+status: requires_verification
+categories:
+  - {code: D,    name: Depression,                      min_kt: 17,  max_kt: 27}
+  - {code: DD,   name: Deep Depression,                 min_kt: 28,  max_kt: 33}
+  - {code: CS,   name: Cyclonic Storm,                  min_kt: 34,  max_kt: 47}
+  - {code: SCS,  name: Severe Cyclonic Storm,           min_kt: 48,  max_kt: 63}
+  - {code: VSCS, name: Very Severe Cyclonic Storm,      min_kt: 64,  max_kt: 89}
+  - {code: ESCS, name: Extremely Severe Cyclonic Storm, min_kt: 90,  max_kt: 119}
+  - {code: SuCS, name: Super Cyclonic Storm,            min_kt: 120, max_kt: null}
+below_threshold: {code: LOW, name: Low / below depression}
+# Rapid intensification (provisional, assumption A8): increase >= threshold within window.
+rapid_intensification:
+  threshold_kt: 30
+  window_h: 24
+  status: provisional
