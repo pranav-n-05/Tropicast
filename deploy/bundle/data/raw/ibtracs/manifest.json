@@ -1,0 +1,123 @@
+{
+  "source_id": "ibtracs",
+  "latest": {
+    "source_id": "ibtracs",
+    "path": "/Users/pranavneelakandan/Tropicast/data/raw/ibtracs/ibtracs.NI.list.v04r01.csv",
+    "url": "https://www.ncei.noaa.gov/data/international-best-track-archive-for-climate-stewardship-ibtracs/v04r01/access/csv/ibtracs.NI.list.v04r01.csv",
+    "fetched_at": "2026-11-07T11:26:18.175140+00:00",
+    "changed": false,
+    "sha256": "137d896f68f8dd12d365ec646d77b6e32128770847ac8ef37e1d0f662ac34915",
+    "bytes": 27907168,
+    "remote_last_modified": "Thu, 05 Nov 2026 10:05:33 GMT",
+    "status": "not_modified",
+    "error": null,
+    "extra": {}
+  },
+  "latest_ok": {
+    "source_id": "ibtracs",
+    "path": "/Users/pranavneelakandan/Tropicast/data/raw/ibtracs/ibtracs.NI.list.v04r01.csv",
+    "url": "https://www.ncei.noaa.gov/data/international-best-track-archive-for-climate-stewardship-ibtracs/v04r01/access/csv/ibtracs.NI.list.v04r01.csv",
+    "fetched_at": "2026-11-07T10:30:11.149356+00:00",
+    "changed": true,
+    "sha256": "137d896f68f8dd12d365ec646d77b6e32128770847ac8ef37e1d0f662ac34915",
+    "bytes": 27907168,
+    "remote_last_modified": "Thu, 05 Nov 2026 10:05:33 GMT",
+    "status": "ok",
+    "error": null,
+    "extra": {},
+    "checked_at": "2026-11-07T11:26:18.175140+00:00"
+  },
+  "history": [
+    {
+      "source_id": "ibtracs",
+      "path": "/Users/pranavneelakandan/Tropicast/data/raw/ibtracs/ibtracs.NI.list.v04r01.csv",
+      "url": "https://www.ncei.noaa.gov/data/international-best-track-archive-for-climate-stewardship-ibtracs/v04r01/access/csv/ibtracs.NI.list.v04r01.csv",
+      "fetched_at": "2026-11-07T10:30:11.149356+00:00",
+      "changed": true,
+      "sha256": "137d896f68f8dd12d365ec646d77b6e32128770847ac8ef37e1d0f662ac34915",
+      "bytes": 27907168,
+      "remote_last_modified": "Thu, 05 Nov 2026 10:05:33 GMT",
+      "status": "ok",
+      "error": null,
+      "extra": {}
+    },
+    {
+      "source_id": "ibtracs",
+      "path": "/Users/pranavneelakandan/Tropicast/data/raw/ibtracs/ibtracs.NI.list.v04r01.csv",
+      "url": "https://www.ncei.noaa.gov/data/international-best-track-archive-for-climate-stewardship-ibtracs/v04r01/access/csv/ibtracs.NI.list.v04r01.csv",
+      "fetched_at": "2026-11-07T10:37:16.192603+00:00",
+      "changed": false,
+      "sha256": "137d896f68f8dd12d365ec646d77b6e32128770847ac8ef37e1d0f662ac34915",
+      "bytes": 27907168,
+      "remote_last_modified": "Thu, 05 Nov 2026 10:05:33 GMT",
+      "status": "not_modified",
+      "error": null,
+      "extra": {}
+    },
+    {
+      "source_id": "ibtracs",
+      "path": "/Users/pranavneelakandan/Tropicast/data/raw/ibtracs/ibtracs.NI.list.v04r01.csv",
+      "url": "https://www.ncei.noaa.gov/data/international-best-track-archive-for-climate-stewardship-ibtracs/v04r01/access/csv/ibtracs.NI.list.v04r01.csv",
+      "fetched_at": "2026-11-07T11:26:15.289814+00:00",
+      "changed": false,
+      "sha256": "137d896f68f8dd12d365ec646d77b6e32128770847ac8ef37e1d0f662ac34915",
+      "bytes": 27907168,
+      "remote_last_modified": "Thu, 05 Nov 2026 10:05:33 GMT",
+      "status": "not_modified",
+      "error": null,
+      "extra": {}
+    },
+    {
+      "source_id": "ibtracs",
+      "path": "/Users/pranavneelakandan/Tropicast/data/raw/ibtracs/ibtracs.NI.list.v04r01.csv",
+      "url": "https://www.ncei.noaa.gov/data/international-best-track-archive-for-climate-stewardship-ibtracs/v04r01/access/csv/ibtracs.NI.list.v04r01.csv",
+      "fetched_at": "2026-11-07T11:26:15.641749+00:00",
+      "changed": false,
+      "sha256": "137d896f68f8dd12d365ec646d77b6e32128770847ac8ef37e1d0f662ac34915",
+      "bytes": 27907168,
+      "remote_last_modified": "Thu, 05 Nov 2026 10:05:33 GMT",
+      "status": "not_modified",
+      "error": null,
+      "extra": {}
+    },
+    {
+      "source_id": "ibtracs",
+      "path": "/Users/pranavneelakandan/Tropicast/data/raw/ibtracs/ibtracs.NI.list.v04r01.csv",
+      "url": "https://www.ncei.noaa.gov/data/international-best-track-archive-for-climate-stewardship-ibtracs/v04r01/access/csv/ibtracs.NI.list.v04r01.csv",
+      "fetched_at": "2026-11-07T11:26:16.481481+00:00",
+      "changed": false,
+      "sha256": "137d896f68f8dd12d365ec646d77b6e32128770847ac8ef37e1d0f662ac34915",
+      "bytes": 27907168,
+      "remote_last_modified": "Thu, 05 Nov 2026 10:05:33 GMT",
+      "status": "not_modified",
+      "error": null,
+      "extra": {}
+    },
+    {
+      "source_id": "ibtracs",
+      "path": "/Users/pranavneelakandan/Tropicast/data/raw/ibtracs/ibtracs.NI.list.v04r01.csv",
+      "url": "https://www.ncei.noaa.gov/data/international-best-track-archive-for-climate-stewardship-ibtracs/v04r01/access/csv/ibtracs.NI.list.v04r01.csv",
+      "fetched_at": "2026-11-07T11:26:17.061720+00:00",
+      "changed": false,
+      "sha256": "137d896f68f8dd12d365ec646d77b6e32128770847ac8ef37e1d0f662ac34915",
+      "bytes": 27907168,
+      "remote_last_modified": "Thu, 05 Nov 2026 10:05:33 GMT",
+      "status": "not_modified",
+      "error": null,
+      "extra": {}
+    },
+    {
+      "source_id": "ibtracs",
+      "path": "/Users/pranavneelakandan/Tropicast/data/raw/ibtracs/ibtracs.NI.list.v04r01.csv",
+      "url": "https://www.ncei.noaa.gov/data/international-best-track-archive-for-climate-stewardship-ibtracs/v04r01/access/csv/ibtracs.NI.list.v04r01.csv",
+      "fetched_at": "2026-11-07T11:26:18.175140+00:00",
+      "changed": false,
+      "sha256": "137d896f68f8dd12d365ec646d77b6e32128770847ac8ef37e1d0f662ac34915",
+      "bytes": 27907168,
+      "remote_last_modified": "Thu, 05 Nov 2026 10:05:33 GMT",
+      "status": "not_modified",
+      "error": null,
+      "extra": {}
+    }
+  ]
+}

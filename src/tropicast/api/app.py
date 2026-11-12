@@ -261,6 +261,27 @@ def categories() -> dict:
     return config.load("imd_categories")
 
 
+@app.on_event("startup")
+def _startup() -> None:
+    """Optional in-process real-time loop for single-service hosts (e.g. Render free plan).
+
+    Enabled by TROPICAST_EMBEDDED_PIPELINE_MIN (minutes). Off by default: rebuilding the
+    processed tables needs more memory than a 512 MB instance provides.
+    """
+    import os
+    import threading
+
+    try:
+        import torch
+        torch.set_num_threads(int(os.environ.get("TORCH_NUM_THREADS", "1")))
+    except Exception:
+        pass
+    minutes = os.environ.get("TROPICAST_EMBEDDED_PIPELINE_MIN")
+    if minutes:
+        threading.Thread(target=pipeline.loop, args=(float(minutes),), daemon=True, name="pipeline").start()
+        log.info("embedded pipeline every %s min", minutes)
+
+
 _front = config.PROJECT_ROOT / "frontend"
 if _front.exists():
     app.mount("/", StaticFiles(directory=_front, html=True), name="dashboard")

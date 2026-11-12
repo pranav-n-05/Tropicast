@@ -1,0 +1,17 @@
+# Render Blueprint: https://render.com/docs/blueprint-spec
+# One Docker web service serving the API + dashboard from the frozen bundle in deploy/bundle.
+services:
+  - type: web
+    name: tropicast
+    runtime: docker
+    plan: free
+    region: singapore          # closest Render region to the North Indian Ocean
+    dockerfilePath: ./Dockerfile
+    healthCheckPath: /api/v1/health
+    autoDeploy: true
+    envVars:
+      - key: TROPICAST_DB
+        value: /tmp/tropicast.sqlite
+      # Uncomment on a plan with >= 1 GB RAM to refresh IBTrACS and forecast active storms in-process:
+      # - key: TROPICAST_EMBEDDED_PIPELINE_MIN
+      #   value: "180"

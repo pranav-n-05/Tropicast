@@ -1,0 +1,40 @@
+{
+  "source_id": "hursat",
+  "latest": {
+    "source_id": "hursat",
+    "path": "/Users/pranavneelakandan/Tropicast/data/raw/hursat/npz",
+    "url": "https://www.ncei.noaa.gov/data/hurricane-satellite-hursat-b1/archive/v06",
+    "fetched_at": "2026-11-07T11:31:03.797824+00:00",
+    "changed": true,
+    "sha256": null,
+    "bytes": null,
+    "remote_last_modified": null,
+    "status": "error",
+    "error": "2001281N18071: ('Connection broken: IncompleteRead(1817626 bytes read, 6601387 more expected)', IncompleteRead(1817626 bytes read, 6601387 more expected)); 2001267N17070: ('Connection broken: IncompleteRead(8010778 bytes read, 288270 more expected)', IncompleteRead(8010778 bytes read, 288270 more expected)); 2006182N20088: NetCDF: HDF error; 2009247N19089: NetCDF: HDF error; 2013324N07103: NetCDF: HDF error; 2014279N11096: NetCDF: HDF error",
+    "extra": {
+      "storms": 191,
+      "processed": 185,
+      "errors": 6
+    }
+  },
+  "latest_ok": null,
+  "history": [
+    {
+      "source_id": "hursat",
+      "path": "/Users/pranavneelakandan/Tropicast/data/raw/hursat/npz",
+      "url": "https://www.ncei.noaa.gov/data/hurricane-satellite-hursat-b1/archive/v06",
+      "fetched_at": "2026-11-07T11:31:03.797824+00:00",
+      "changed": true,
+      "sha256": null,
+      "bytes": null,
+      "remote_last_modified": null,
+      "status": "error",
+      "error": "2001281N18071: ('Connection broken: IncompleteRead(1817626 bytes read, 6601387 more expected)', IncompleteRead(1817626 bytes read, 6601387 more expected)); 2001267N17070: ('Connection broken: IncompleteRead(8010778 bytes read, 288270 more expected)', IncompleteRead(8010778 bytes read, 288270 more expected)); 2006182N20088: NetCDF: HDF error; 2009247N19089: NetCDF: HDF error; 2013324N07103: NetCDF: HDF error; 2014279N11096: NetCDF: HDF error",
+      "extra": {
+        "storms": 191,
+        "processed": 185,
+        "errors": 6
+      }
+    }
+  ]
+}

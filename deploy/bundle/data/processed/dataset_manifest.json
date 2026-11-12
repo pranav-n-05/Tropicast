@@ -1,0 +1,31 @@
+{
+  "data_version": "ni-91fb4b71781f",
+  "raw_sha256": "137d896f68f8dd12d365ec646d77b6e32128770847ac8ef37e1d0f662ac34915",
+  "config_sha256": "20b972f63665f8c7e6c3969444ae434b17fc02e17eb17bd9799d59af2ada0b32",
+  "source": "https://www.ncei.noaa.gov/data/international-best-track-archive-for-climate-stewardship-ibtracs/v04r01/access/csv/ibtracs.NI.list.v04r01.csv",
+  "qc": {
+    "input_rows": 62910,
+    "output_rows": 57683,
+    "dropped": {
+      "outside_bbox": 5149,
+      "spur_track": 78,
+      "implausible_wind_set_nan": 0,
+      "implausible_pres_set_nan": 0
+    },
+    "storms": 1855,
+    "agency_rows": {
+      "none": 41954,
+      "newdelhi": 9453,
+      "usa": 6276
+    }
+  },
+  "rows_6h": 28918,
+  "storms": 1855,
+  "seasons": [
+    1842,
+    2026
+  ],
+  "latest_observation_utc": "2026-11-03 06:00:00+00:00",
+  "env_cases_matched": 2199,
+  "env_storms": 154
+}

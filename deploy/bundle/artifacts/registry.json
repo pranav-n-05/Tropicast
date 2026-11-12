@@ -1,0 +1,49 @@
+{
+  "created_utc": "20261107T113459Z",
+  "data_version": "ni-91fb4b71781f",
+  "training_config_sha": "aba5e6c5",
+  "fast_mode": false,
+  "track_model": {
+    "model_name": "gru_ensemble+pr",
+    "model_version": "gru_ensemble+pr-ni-91fb4b71781f-aba5e6c5-20261107T113459Z",
+    "path": "artifacts/run-20261107T113459Z/gru_ensemble+pr.pkl"
+  },
+  "intensity_model": {
+    "model_name": "gru_ensemble+pr",
+    "model_version": "gru_ensemble+pr-ni-91fb4b71781f-aba5e6c5-20261107T113459Z",
+    "path": "artifacts/run-20261107T113459Z/gru_ensemble+pr.pkl"
+  },
+  "reference_model": {
+    "model_name": "persistence",
+    "model_version": "persistence-ni-91fb4b71781f-aba5e6c5-20261107T113459Z",
+    "path": "artifacts/run-20261107T113459Z/persistence.pkl"
+  },
+  "ri_model": {
+    "model_name": "ri_logistic+env",
+    "model_version": "ri_logistic+env-ni-91fb4b71781f-aba5e6c5-20261107T113459Z",
+    "path": "artifacts/run-20261107T113459Z/ri.pkl",
+    "status": "experimental"
+  },
+  "selection_rule": "lowest validation mean error averaged over leads",
+  "split": {
+    "train": [
+      1982,
+      2012
+    ],
+    "val": [
+      2013,
+      2018
+    ],
+    "test": [
+      2019,
+      2025
+    ]
+  },
+  "leads_h": [
+    6,
+    12,
+    24,
+    48,
+    72
+  ]
+}

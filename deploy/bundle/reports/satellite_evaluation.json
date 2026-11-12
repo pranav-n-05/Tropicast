@@ -1,0 +1,407 @@
+{
+  "generated_utc": "20261107T123603Z",
+  "runtime_s": 1968.1,
+  "fast_mode": false,
+  "data": {
+    "images": 3447,
+    "storms": 169,
+    "seasons": [
+      1982,
+      2015
+    ],
+    "common_subset_rows": 2338,
+    "folds": [
+      [
+        1982,
+        1995
+      ],
+      [
+        1996,
+        2001
+      ],
+      [
+        2002,
+        2006
+      ],
+      [
+        2007,
+        2011
+      ],
+      [
+        2012,
+        2015
+      ]
+    ],
+    "satellites": {
+      "MET-5": 1062,
+      "MET-7": 1001,
+      "FY2-E": 370,
+      "GMS-4": 350,
+      "FY2-C": 312,
+      "GMS-5": 227,
+      "GMS-3": 62,
+      "GMS-2": 53,
+      "MET-4": 6,
+      "GOE-7": 2,
+      "MSG-2": 1,
+      "HIM-8": 1
+    },
+    "per_fold_rows": {
+      "0": 519,
+      "1": 660,
+      "2": 747,
+      "3": 704,
+      "4": 817
+    }
+  },
+  "cnn": {
+    "epochs": 15,
+    "members": 1,
+    "interval90": [
+      {
+        "fold": 0,
+        "q": 1.676,
+        "coverage": 0.884,
+        "mean_width_kt": 52.2
+      },
+      {
+        "fold": 1,
+        "q": 2.342,
+        "coverage": 0.95,
+        "mean_width_kt": 60.7
+      },
+      {
+        "fold": 2,
+        "q": 2.138,
+        "coverage": 0.914,
+        "mean_width_kt": 49.2
+      },
+      {
+        "fold": 3,
+        "q": 1.772,
+        "coverage": 0.943,
+        "mean_width_kt": 52.6
+      },
+      {
+        "fold": 4,
+        "q": 1.982,
+        "coverage": 0.869,
+        "mean_width_kt": 53.1
+      }
+    ]
+  },
+  "estimation": {
+    "all_rows": {
+      "climatology": {
+        "n": 3447,
+        "mae": 16.4,
+        "rmse": 22.16,
+        "bias": 0.08
+      },
+      "sat-only[IR features]": {
+        "n": 3447,
+        "mae": 10.24,
+        "rmse": 15.84,
+        "bias": -3.4
+      },
+      "sat-only[CNN]": {
+        "n": 3447,
+        "mae": 11.4,
+        "rmse": 17.32,
+        "bias": -2.02
+      },
+      "sat-only[CNN+IR features]": {
+        "n": 3447,
+        "mae": 9.87,
+        "rmse": 15.15,
+        "bias": -2.95
+      }
+    },
+    "common_subset": {
+      "climatology": {
+        "n": 2338,
+        "mae": 16.59,
+        "rmse": 23.46,
+        "bias": -4.38,
+        "per_fold_mae": [
+          17.11,
+          18.85,
+          11.84,
+          16.99,
+          18.09
+        ]
+      },
+      "sat-only[IR features]": {
+        "n": 2338,
+        "mae": 11.68,
+        "rmse": 17.19,
+        "bias": -5.45,
+        "per_fold_mae": [
+          13.75,
+          13.77,
+          8.71,
+          10.76,
+          12.41
+        ]
+      },
+      "sat-only[CNN]": {
+        "n": 2338,
+        "mae": 12.84,
+        "rmse": 19.15,
+        "bias": -4.43,
+        "per_fold_mae": [
+          14.97,
+          12.7,
+          9.2,
+          12.63,
+          15.07
+        ]
+      },
+      "sat-only[CNN+IR features]": {
+        "n": 2338,
+        "mae": 11.31,
+        "rmse": 16.61,
+        "bias": -4.82,
+        "per_fold_mae": [
+          13.12,
+          12.95,
+          8.56,
+          10.65,
+          12.07
+        ]
+      },
+      "env-only": {
+        "n": 2338,
+        "mae": 15.27,
+        "rmse": 21.83,
+        "bias": -3.86,
+        "per_fold_mae": [
+          12.93,
+          16.68,
+          9.36,
+          15.83,
+          19.36
+        ]
+      },
+      "sat+env": {
+        "n": 2338,
+        "mae": 11.81,
+        "rmse": 16.98,
+        "bias": -2.85,
+        "per_fold_mae": [
+          12.04,
+          13.05,
+          8.12,
+          11.87,
+          13.66
+        ]
+      },
+      "sat+env+temporal": {
+        "n": 2338,
+        "mae": 10.33,
+        "rmse": 14.82,
+        "bias": -2.04,
+        "per_fold_mae": [
+          11.35,
+          11.51,
+          7.2,
+          10.31,
+          11.5
+        ]
+      },
+      "full (+previous best-track wind)": {
+        "n": 2338,
+        "mae": 3.77,
+        "rmse": 6.24,
+        "bias": -0.64,
+        "per_fold_mae": [
+          4.68,
+          4.48,
+          2.78,
+          4.12,
+          3.32
+        ]
+      },
+      "reference: previous wind (t-6 h)": {
+        "n": 2338,
+        "mae": 3.98,
+        "rmse": 7.38,
+        "bias": -1.01,
+        "per_fold_mae": [
+          4.84,
+          4.33,
+          2.76,
+          4.21,
+          4.09
+        ]
+      }
+    }
+  },
+  "forecast_dw24": {
+    "persistence (no change)": {
+      "n": 1744,
+      "mae": 15.0,
+      "rmse": 21.18,
+      "bias": -4.42,
+      "ri_hit_rate_of_events": 0.0
+    },
+    "temporal-only": {
+      "n": 1744,
+      "mae": 12.78,
+      "rmse": 17.59,
+      "bias": -1.52,
+      "ri_hit_rate_of_events": 0.03
+    },
+    "env-only": {
+      "n": 1744,
+      "mae": 13.09,
+      "rmse": 18.4,
+      "bias": 0.64,
+      "ri_hit_rate_of_events": 0.0
+    },
+    "sat-only": {
+      "n": 1744,
+      "mae": 13.19,
+      "rmse": 18.94,
+      "bias": -1.99,
+      "ri_hit_rate_of_events": 0.0
+    },
+    "sat+env": {
+      "n": 1744,
+      "mae": 12.67,
+      "rmse": 17.99,
+      "bias": -0.17,
+      "ri_hit_rate_of_events": 0.006
+    },
+    "temporal+env": {
+      "n": 1744,
+      "mae": 12.19,
+      "rmse": 17.1,
+      "bias": 0.08,
+      "ri_hit_rate_of_events": 0.006
+    },
+    "full (sat+env+temporal)": {
+      "n": 1744,
+      "mae": 12.04,
+      "rmse": 16.93,
+      "bias": 0.01,
+      "ri_hit_rate_of_events": 0.024
+    }
+  },
+  "stage_classification": {
+    "sat-only[CNN]": {
+      "accuracy": 0.467,
+      "macro_f1": 0.41,
+      "labels": [
+        "D/DD",
+        "CS",
+        "SCS",
+        "VSCS+"
+      ],
+      "confusion_matrix": [
+        [
+          630,
+          234,
+          46,
+          14
+        ],
+        [
+          297,
+          257,
+          130,
+          28
+        ],
+        [
+          54,
+          107,
+          83,
+          22
+        ],
+        [
+          50,
+          110,
+          155,
+          121
+        ]
+      ]
+    },
+    "sat+env+temporal": {
+      "accuracy": 0.547,
+      "macro_f1": 0.509,
+      "labels": [
+        "D/DD",
+        "CS",
+        "SCS",
+        "VSCS+"
+      ],
+      "confusion_matrix": [
+        [
+          652,
+          241,
+          29,
+          2
+        ],
+        [
+          200,
+          309,
+          162,
+          41
+        ],
+        [
+          20,
+          118,
+          97,
+          31
+        ],
+        [
+          10,
+          70,
+          135,
+          221
+        ]
+      ]
+    },
+    "full (+previous best-track wind)": {
+      "accuracy": 0.816,
+      "macro_f1": 0.787,
+      "labels": [
+        "D/DD",
+        "CS",
+        "SCS",
+        "VSCS+"
+      ],
+      "confusion_matrix": [
+        [
+          873,
+          47,
+          1,
+          3
+        ],
+        [
+          166,
+          489,
+          55,
+          2
+        ],
+        [
+          0,
+          77,
+          173,
+          16
+        ],
+        [
+          0,
+          1,
+          62,
+          373
+        ]
+      ]
+    }
+  },
+  "notes": [
+    "Labels: RSMC New Delhi 3-min winds. Imagery: HURSAT-B1 v06 IRWIN, best (lowest VZA) satellite.",
+    "Satellite archive ends 2015, so these results are a separate hindcast study, not the live system.",
+    "Common subset = rows with SHIPS environment and a t-6 h best-track wind (1990-2015).",
+    "Explainability (Grad-CAM) is an interpretive aid, not proof of physical causation."
+  ]
+}
