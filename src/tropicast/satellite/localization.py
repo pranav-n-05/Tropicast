@@ -63,7 +63,8 @@ def _coldest(crops: np.ndarray) -> np.ndarray:
     k = np.ones((3, 3)) / 9
     out = []
     for im in crops:
-        sm = F.conv2d(torch.from_numpy(im[None, None]).float(), torch.from_numpy(k[None, None]).float(), padding=1)[0, 0]
+        x = F.pad(torch.from_numpy(im[None, None]).float(), (1, 1, 1, 1), mode="replicate")  # zero-pad would bias to edges
+        sm = F.conv2d(x, torch.from_numpy(k[None, None]).float())[0, 0]
         y, x = np.unravel_index(int(sm.argmin()), sm.shape)
         out.append([x + 0.5, y + 0.5])
     return np.asarray(out, np.float32)

@@ -1,89 +1,86 @@
 # Tropicast
 
-**Research decision-support prototype for tropical cyclones in the North Indian Ocean (Bay of Bengal + Arabian Sea).**
-It tracks storms, classifies them on the IMD scale, and issues *experimental* track and intensity forecasts with
-calibrated uncertainty, out to 72 hours.
+**Research decision-support platform for tropical cyclones in the North Indian Ocean (Bay of Bengal + Arabian Sea).**
+It tracks storms, classifies them on the IMD scale, issues *experimental* 6–72 h track and intensity forecasts with
+calibrated uncertainty, estimates intensity from satellite IR with Grad-CAM explanations, and estimates landfall
+and coastal exposure. Every number it reports was produced by its own code on unseen storm seasons.
 
 > This platform provides experimental AI-based decision support. It is not an official weather warning, evacuation
 > advisory, or disaster-management product. For safety-critical decisions, follow official advisories from the India
 > Meteorological Department and relevant disaster-management authorities.
 
-## What works today (v0.1)
-
-| Capability | Status |
+## Capabilities (v0.2)
+| Area | What is there |
 |---|---|
-| IBTrACS v04r01 NI ingestion (conditional GET, sha256, provenance manifest) | working |
-| QC + agency-explicit tidy tracks (RSMC New Delhi 3-min preferred, JTWC 1-min flagged, **no silent conversion**) | working |
-| IMD classification (D … SuCS) + category probabilities | working |
-| Track forecasts 6/12/24/48/72 h: persistence, ridge, GBM, GRU deep ensemble | working, evaluated |
-| Intensity forecasts with 90 % intervals | working, evaluated |
-| Split-conformal uncertainty (track cones 67/90 %, wind intervals) | working, coverage reported |
-| Rapid-intensification probability | experimental. **No demonstrated skill on validation** (shown in the UI) |
-| FastAPI service, audit log, rate limit, source-status endpoint | working |
-| Dashboard (map, cones, hindcast slider with verification, intensity chart, evaluation, data status) | working |
-| Real-time-capable pipeline (polls, detects active storms, stores forecasts, labels freshness honestly) | working; latency limited by IBTrACS (days) |
-| Satellite imagery (MOSDAC/INSAT, Himawari), ERA5, IMERG | **not available**: credentials required; connectors are explicit scaffolds |
-| Detection / eye segmentation / Grad-CAM / multimodal fusion | **not yet evaluated**: needs imagery |
+| Data | IBTrACS v04r01 (RSMC New Delhi labels), SHIPS IO environment (t=0 only), HURSAT-B1 IR imagery, Natural Earth regions. Conditional GET, sha256, provenance manifests, QC report |
+| Agency safety | IMD 3-min and JTWC 1-min winds kept separate, never converted; IMD category withheld for non-IMD winds |
+| Track/intensity forecast | persistence, ridge, GBM, GRU deep ensemble, each with and without environment; persistence-residual learning; season-disjoint splits |
+| Uncertainty | split-conformal 67/90 % cones and 90 % wind intervals; coverage verified on test seasons |
+| Rapid intensification | environment-aware logistic model with proper scores; skill status shown in the UI |
+| Satellite | IR CNN (rotation-only augmentation, TTA, ensemble), IR structure features, nested-CV multimodal ablation, stage classification, Grad-CAM |
+| Centre localisation | heatmap (soft-argmax) network vs coldest-cloud and prior baselines |
+| Coastal exposure | landfall and strike probabilities per state/province from member tracks; verified |
+| Platform | FastAPI (16 endpoints, audit log, rate limit, notifications + webhook), dashboard, real-time pipeline with honest freshness, Docker |
+| Not available | ERA5, IMERG rainfall, INSAT via MOSDAC (credentials); wind-field, surge or evacuation products (out of scope by design) |
 
-## Quick start
-
-```bash
-uv venv -p 3.12 .venv && uv pip install -e ".[dev]"   # or: python -m venv .venv && pip install -e ".[dev]"
-.venv/bin/tropicast ingest        # download IBTrACS NI (~28 MB), build processed tables + QC report
-.venv/bin/tropicast train         # train, calibrate, evaluate, register (~3 min on a laptop CPU)
-.venv/bin/tropicast pipeline --once   # one real-time cycle: fetch, find active storms, forecast, store
-.venv/bin/tropicast serve         # http://127.0.0.1:8000  (dashboard)  /docs  (OpenAPI)
-.venv/bin/python -m pytest -q     # 55 tests
-```
-
-Docker: `docker compose up --build`. On first start the `api` container ingests the data and trains the models.
-The `pipeline` worker starts once `api` reports healthy, then runs a cycle every `PIPELINE_INTERVAL_MIN`.
-
-## Results
-
-The training pipeline writes all numbers to [reports/evaluation.md](reports/evaluation.md). None are typed in by hand.
-The test set is the 2019–2025 seasons, unseen storms. Models are selected on 2013–2018 data and trained on 1982–2012.
-The latest run selected `gru_ensemble+pr`, a GRU deep ensemble that predicts the correction to persistence:
-
-| lead | track error km (persistence) | skill vs persistence | wind MAE kt (persistence) |
+## Results (test data = unseen seasons; full tables in `reports/`)
+**Track and intensity, 2019–2025 storms.** Selected model: `gru_ensemble+pr`.
+| lead | track error km (persistence) | skill | wind MAE kt (persistence) |
 |---|---|---|---|
 | 24 h | 144 (155) | +7 % | 10.0 (12.5) |
 | 48 h | 293 (344) | +15 % | 16.5 (20.5) |
 | 72 h | 409 (531) | +23 % | 19.8 (24.5) |
 
-At 6–12 h, persistence is as good as any learned model or slightly better. All learned models move storms too slowly
-on the test seasons; see the along-track bias in the report. Use these numbers for research context only; they do not
-indicate operational skill.
+At 6–12 h, persistence is as good as any model or slightly better. The negative along-track bias is the
+error-minimising shrinkage, checked by scaling forecasts on validation (see docs/model_card.md).
 
-## Layout
+**Satellite study, nested season-block CV, 1982–2015, 3,447 images.**
+| intensity estimation | MAE kt |
+|---|---|
+| climatology | 16.4 |
+| CNN only | 11.4 |
+| CNN + IR structure features | 9.9 |
+| satellite + environment + track history (common subset) | 10.3 |
+| + previous best-track wind, vs that wind alone | 3.8 vs 4.0 |
 
+For the 24 h intensity change, the full multimodal model (12.0 kt) beats temporal-only (12.8) and persistence (15.0).
+
+**Landfall probability (72 h, test seasons):** 309 issues, BSS +0.37, AUC 0.85. It over-forecasts at low
+probabilities; see the reliability table.
+**Centre localisation (2012–2015):** 72.5 km mean error vs 124 km (prior) and 176 km (coldest cloud); 36 km for
+storms of 64 kt and above.
+**RI:** environment-aware model has validation BSS +0.12 and AUC 0.80; test BSS +0.07.
+
+## Quick start
+```bash
+uv venv -p 3.12 .venv && uv pip install -e ".[dev]"
+.venv/bin/tropicast ingest       # IBTrACS + SHIPS → processed tables, QC report
+.venv/bin/tropicast train        # forecast models + reports/evaluation.md (~5 min CPU)
+.venv/bin/tropicast satellite    # HURSAT + CNN study + localisation + deploy CNN (~1–2 h CPU; --fast for a smoke run)
+.venv/bin/tropicast risk-eval    # landfall verification
+.venv/bin/tropicast serve        # http://127.0.0.1:8000 (dashboard), /docs (OpenAPI)
+.venv/bin/python -m pytest -q    # 71 tests
 ```
-configs/      domain (bbox), IMD categories, sources register, training config
-src/tropicast/
-  ingestion/  connector base (retry, conditional GET, checksum, manifest), IBTrACS, credential scaffolds
-  preprocessing/ tidy agency-explicit tracks + QC
-  geospatial/ great-circle, along/cross-track
-  classification/ IMD scale
-  datasets/   sample builder (no leakage), season split, versioned build
-  models/     persistence, ridge, GBM, GRU ensemble, persistence-residual wrapper, conformal, RI
-  training/   train → calibrate (val) → select (val) → evaluate (test) → register
-  evaluation/ metrics + markdown report
-  inference/  forecast product with uncertainty, provenance and warnings
-  realtime/   pipeline + freshness
-  database/   SQLite store: forecasts, pipeline runs, audit log
-  api/        FastAPI app (+ serves frontend/)
-frontend/     dashboard (Leaflet + Plotly, no build step)
-docs/         requirements, architecture, data sources, model card, literature, roadmap
-tests/        unit + integration + API tests
-```
+Docker: `docker compose up --build`. The image was built and smoke-tested (`tropicast:0.2`).
 
 ## Documentation
-- [docs/phase1-requirements.md](docs/phase1-requirements.md): requirements, risks, assumptions
-- [docs/architecture.md](docs/architecture.md): design, data flow, schemas, API
-- [docs/data_sources.md](docs/data_sources.md): source register and access status
-- [docs/model_card.md](docs/model_card.md): model inputs and outputs, limitations, uncertainty
-- [docs/literature.md](docs/literature.md): methods references and research gaps
-- [docs/roadmap.md](docs/roadmap.md): progress register and next steps
+| doc | content |
+|---|---|
+| [docs/final_report.md](docs/final_report.md) | generated final report (all metrics copied from reports/) |
+| [docs/SRS.md](docs/SRS.md) | requirements with verification status |
+| [docs/phase1-requirements.md](docs/phase1-requirements.md) | problem, scope, risks, assumptions |
+| [docs/literature.md](docs/literature.md) | literature review and research gaps (verified citations) |
+| [docs/architecture.md](docs/architecture.md) | layers, DFD, UML, sequences, ER, wireframe, config schema |
+| [docs/data_sources.md](docs/data_sources.md), [docs/datasets.md](docs/datasets.md) | source register, dataset cards |
+| [docs/model_card.md](docs/model_card.md) | models, uncertainty, limitations |
+| [docs/api.md](docs/api.md), `docs/openapi.json` | API reference |
+| [docs/user_manual.md](docs/user_manual.md), [docs/installation.md](docs/installation.md) | usage, install, operations, backup |
+| [docs/testing_report.md](docs/testing_report.md) | test inventory and results |
+| [docs/paper_outline.md](docs/paper_outline.md), [docs/roadmap.md](docs/roadmap.md) | paper plan, progress register |
 
-Data: IBTrACS (Knapp et al., 2010, *BAMS*, doi:10.1175/2009BAMS2755.1), NOAA NCEI.
-The best track used for labels is from RSMC New Delhi (IMD).
+## Data credits
+IBTrACS: Knapp et al. (2010), doi:10.1175/2009BAMS2755.1 (NOAA NCEI). HURSAT-B1: Knapp & Kossin (2007),
+doi:10.1117/1.2712816. SHIPS developmental data: CIRA/RAMMB (DeMaria & Kaplan 1994). Natural Earth (public domain).
+Labels are the RSMC New Delhi (IMD) best track.
+
+Licence: MIT (see LICENSE).

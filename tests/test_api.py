@@ -57,3 +57,20 @@ def test_sources_report_credentials_honestly(client):
     d = client.get("/api/v1/sources").json()["data"]
     assert d["mosdac_insat"]["status"] == "requires_credentials"
     assert d["ibtracs_ni"]["status"] == "implemented"
+
+
+def test_satellite_product_at_requested_time(client):
+    r = client.get("/api/v1/storms/2007314N10093/satellite", params={"time": "2007-11-14T12:00:00Z"})
+    if r.status_code == 503:
+        pytest.skip("satellite CNN not trained")
+    p = r.json()
+    assert r.status_code == 200 and p["time"].startswith("2007-11-14")
+    assert p["cnn_wind_kt_90"][0] <= p["cnn_wind_kt"] <= p["cnn_wind_kt_90"][1]
+    assert len(p["gradcam"]) == 64 and p["product"] == "RESEARCH_SATELLITE_ESTIMATE"
+
+
+def test_exposure_endpoint(client):
+    p = client.get("/api/v1/storms/2020136N10088/exposure",
+                   params={"issue_time": "2020-05-18T12:00:00Z", "members": 100}).json()
+    assert 0 <= p["p_landfall_72h"] <= 1 and p["product"] == "EXPERIMENTAL_TRACK_EXPOSURE"
+    assert all(0 <= r["probability"] <= 1 for r in p["strike_probability"])

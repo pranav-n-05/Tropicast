@@ -41,7 +41,12 @@ def product(sid: str, time: str | None = None, label_wind: float | None = None,
         raise LookupError("No HURSAT imagery for this storm (archive covers 1978-2015, VZA <= 65 deg).")
     z = np.load(f)
     times = np.array([pd.Timestamp(int(t), tz="UTC") for t in z["time"]])
-    i = len(times) - 1 if time is None else int(np.argmin(np.abs(times - pd.Timestamp(time))))
+    if time is None:
+        i = len(times) - 1
+    else:
+        t = pd.Timestamp(time)
+        t = t.tz_localize("UTC") if t.tzinfo is None else t
+        i = int(np.argmin(np.abs(z["time"].astype(np.int64) - t.value)))  # nearest image (int64 ns)
     img = _fill(z["ir"][i])
     prev = np.full_like(img, np.nan)
     j = np.flatnonzero(times == times[i] - pd.Timedelta(hours=6))

@@ -16,9 +16,9 @@
     "p90_km": 180.8
   },
   "baseline_coldest_cloud": {
-    "mean_km": 589.8,
-    "median_km": 591.9,
-    "p90_km": 715.4
+    "mean_km": 176.4,
+    "median_km": 128.3,
+    "p90_km": 396.9
   },
   "cnn_by_intensity": {
     "<34 kt": {

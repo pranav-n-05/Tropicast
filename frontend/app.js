@@ -125,7 +125,7 @@ async function selectStorm(sid) {
     <h3>Coastal exposure <span class="tag ai">EXPERIMENTAL</span></h3><div id="exposure" class="meta">select an issue time…</div>
     <h3>Satellite IR · CNN estimate · Grad-CAM <span class="tag obs">RESEARCH</span></h3><div id="sat" class="meta">loading…</div>`;
   drawIntensity(r.data, null);
-  loadSatellite(sid, null);
+  if (!issuable.length) loadSatellite(sid, null);
   if (issuable.length) {
     const s = $("#issue");
     const go = () => { $("#issue-lbl").textContent = fmtT(issuable[s.value].time); loadForecast(sid, issuable[s.value].time); };
@@ -231,6 +231,7 @@ async function loadForecast(sid, issueTime) {
       <dt>Uncertainty</dt><dd>${esc(f.uncertainty_method)}</dd><dt>Inputs</dt><dd>best-track history only; satellite: ${f.input_status.satellite}; environment: ${f.input_status.environment}</dd></dl>
     <p class="hint">${esc(f.disclaimer)}</p>`;
   loadExposure(sid, f.issue_time);
+  loadSatellite(sid, f.issue_time);  // keep imagery in sync with the forecast issue time
 }
 
 let expTimer;
