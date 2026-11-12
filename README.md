@@ -5,6 +5,10 @@ It tracks storms, classifies them on the IMD scale, issues *experimental* 6–72
 calibrated uncertainty, estimates intensity from satellite IR with Grad-CAM explanations, and estimates landfall
 and coastal exposure. Every number it reports was produced by its own code on unseen storm seasons.
 
+**Live demo:** https://tropicast.onrender.com (dashboard) · https://tropicast.onrender.com/docs (API) —
+Render free instance: first request after inactivity can take ~50 s to wake. Serves a frozen snapshot
+(data version `ni-91fb4b71781f`, models trained 2026-11-07); freshness labels show the true observation dates.
+
 > This platform provides experimental AI-based decision support. It is not an official weather warning, evacuation
 > advisory, or disaster-management product. For safety-critical decisions, follow official advisories from the India
 > Meteorological Department and relevant disaster-management authorities.
@@ -62,6 +66,12 @@ uv venv -p 3.12 .venv && uv pip install -e ".[dev]"
 .venv/bin/python -m pytest -q    # 71 tests
 ```
 Docker: `docker compose up --build`. The image was built and smoke-tested (`tropicast:0.2`).
+
+### Deploy on Render
+`render.yaml` is a Render Blueprint (Docker, free plan, Singapore). The image starts from the frozen serving
+bundle in `deploy/bundle/` (no download/training at boot; fits in 512 MB). Refresh the bundle after retraining:
+`python scripts/make_deploy_bundle.py`, commit, push (auto-deploys). On a plan with ≥ 1 GB RAM set
+`TROPICAST_EMBEDDED_PIPELINE_MIN=180` to refresh IBTrACS and forecast active storms in-process.
 
 ## Documentation
 | doc | content |
